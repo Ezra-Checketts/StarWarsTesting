@@ -1,7 +1,7 @@
-import DatabankPage from '../pageobjects/databankPage.js'
+import StarWarsPage from '../pageobjects/starWarsPage.js'
 
 describe('The website', () => {
     it('finds the 501st databank page through the databank', async () => {
-        await DatabankPage.select501stLegion();
+        await StarWarsPage.select501stLegion();
     })
 })
