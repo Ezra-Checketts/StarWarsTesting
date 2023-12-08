@@ -1,7 +1,7 @@
-import StarWarsPage from '../pageobjects/starWarsPage.js'
+import CloneWarsPage from '../pageobjects/cloneWarsPage.js'
 
 describe('The website', () => {
     it('uses the search function to find a clone wars episode guide', async () => {
-        await StarWarsPage.selectCloneWarsEp('1','Trespass');
+        await CloneWarsPage.selectCloneWarsEp('1','Trespass');
     })
 })
