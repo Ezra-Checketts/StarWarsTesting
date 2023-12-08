@@ -13,7 +13,7 @@ class DatabankFilmPage extends BasePage {
         await super.openStarWars();
         await this.films.waitForClickable();
         await this.films.click();
-        await expect(this.browseFilms).toExist();
+        await this.browseFilms.waitForExist();
     }
 
     async selectSWEp1() {

@@ -27,7 +27,7 @@ class DatabankPage extends BasePage {
         await this.searchDatabank('501');
         await this.databank501stLegion.waitForClickable();
         await this.databank501stLegion.click();
-        await expect(this.page501stLegion).toExist();
+        await this.page501stLegion.waitForExist();
     }
 }
 
