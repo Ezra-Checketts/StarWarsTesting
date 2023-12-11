@@ -16,14 +16,14 @@ class DatabankFilmPage extends BasePage {
         await this.browseFilms.waitForExist();
     }
 
-    async selectSWEp1() {
+    async selectPhantomMenace() {
         await this.selectFilms();
         await this.phantomMenace.waitForClickable();
         await this.phantomMenace.click();
     }
 
     async selectBattleDroid() {
-        await this.selectSWEp1();
+        await this.selectPhantomMenace();
         await this.battleDroid.waitForClickable();
         await this.battleDroid.click();
     }

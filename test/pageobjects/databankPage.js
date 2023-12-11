@@ -7,7 +7,7 @@ class DatabankPage extends BasePage {
     get databankSearch() {return $('#searchField_SRP');}
     get databankSearchEnter() {return $('[value="Search"]');}
     get databank501stLegion() {return $('.title-link[href="https://www.starwars.com/databank/501st-legion"]');}
-    get page501stLegion() {return $('//*[@class="long-title"][contains(text(), "501st Legion")]');}
+    get text501stLegion() {return $('//*[@class="long-title"][contains(text(), "501st Legion")]');}
 
     // Functions:
     async selectDatabank() {
@@ -27,7 +27,7 @@ class DatabankPage extends BasePage {
         await this.searchDatabank('501');
         await this.databank501stLegion.waitForClickable();
         await this.databank501stLegion.click();
-        await this.page501stLegion.waitForExist();
+        await this.text501stLegion.waitForExist();
     }
 }
 

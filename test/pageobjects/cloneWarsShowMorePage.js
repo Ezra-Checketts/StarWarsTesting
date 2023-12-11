@@ -4,7 +4,7 @@ import BasePage from './basePage.js';
 class HiddenCloneWarsPage extends BasePage {
     // Selectors:
     get search() {return $('.search-title');}
-    get searchField() {return $('//div[@class="input-group search-field"]/input[@name="q"]');}
+    get searchField() {return $('.input-group.search-field input[name="q"]');}
     get enterSearch() {return $('[class="input-group search-field"] > [class="search-button ada-el-focus aw-independent"]');}
     get cloneWars() {return $('.title-link[href="https://www.starwars.com/series/star-wars-the-clone-wars"]');}
     get cloneWarsS1() {return $('[data-title="Season 1"]');}
@@ -17,7 +17,7 @@ class HiddenCloneWarsPage extends BasePage {
     }
 
     // Functions:
-    async searchFor(input) {
+    async performSearch(input) {
         await super.openStarWars();
         await this.search.waitForClickable();
         await this.search.click();
@@ -27,7 +27,7 @@ class HiddenCloneWarsPage extends BasePage {
     }
 
     async selectCloneWars() {
-        await this.searchFor('clone wars');
+        await this.performSearch('clone wars');
         await this.cloneWars.waitForClickable();
         await this.cloneWars.click();
     }
