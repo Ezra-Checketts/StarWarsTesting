@@ -7,45 +7,72 @@ class HiddenCloneWarsPage extends BasePage {
     get searchField() {return $('.input-group.search-field input[name="q"]');}
     get enterSearch() {return $('[class="input-group search-field"] > [class="search-button ada-el-focus aw-independent"]');}
     get cloneWars() {return $('.title-link[href="https://www.starwars.com/series/star-wars-the-clone-wars"]');}
-    get cloneWarsS1() {return $('[data-title="Season 1"]');}
     get showMore() {return $('//section[@id="ref-1-6"]//span[contains(text(), "Show More")]');}
-    cloneWarsSeason(number) {
-        return $(`[data-title="Season ${number}"]`);
+    cloneWarsSeason(seasonNumber) {
+        return $(`[data-title="Season ${seasonNumber}"]`);
     }
-    cloneWarsEp(episode) {
-        return $(`//*[contains(text(), "${episode}")]`);
+    cloneWarsEpisode(episodeName) {
+        return $(`//*[contains(text(), "${episodeName}")]`);
     }
 
     // Functions:
+    // Performs a search on the Star Wars website
     async performSearch(input) {
-        await super.openStarWars();
-        await this.search.waitForClickable();
-        await this.search.click();
-        await this.searchField.setValue(input);
-        await this.enterSearch.waitForClickable();
-        await this.enterSearch.click();
+        try {
+            const searchElement = this.search
+            const searchFieldElement = this.searchField
+            const enterSearchElement = this.enterSearch
+            await super.openStarWars();
+            await super.waitForClickableAndClick(searchElement);
+            await searchFieldElement.setValue(input);
+            await super.waitForClickableAndClick(enterSearchElement);
+        } catch (error) {
+            await super.handleError('performSearch', error);
+        }
     }
 
+    // Selects Star Wars: The Clone Wars from search results
     async selectCloneWars() {
-        await this.performSearch('clone wars');
-        await this.cloneWars.waitForClickable();
-        await this.cloneWars.click();
+        try {
+            const cloneWarsElement = this.cloneWars
+            await this.performSearch('clone wars');
+            await super.waitForClickableAndClick(cloneWarsElement);
+        } catch (error) {
+            await super.handleError('selectCloneWars', error);
+        }
     }
 
-    async selectCloneWarsSeason(season) {
-        await this.selectCloneWars();
-        await this.cloneWarsSeason(season).click();
+    // Selects a Clone Wars Season from the Clone Wars Page
+    async selectCloneWarsSeason(seasonNumber) {
+        try {
+            const seasonElement = this.cloneWarsSeason(seasonNumber);
+            await this.selectCloneWars();
+            await super.waitForClickableAndClick(seasonElement);
+        } catch (error) {
+            await super.handleError('selectCloneWarsSeason', error);
+        }
     }
 
-    async selectShowMore(season) {
-        await this.selectCloneWarsSeason(season);
-        await this.showMore.waitForClickable();
-        await this.showMore.click();
+    // Selects the Show More button to show more Clone Wars episode guides
+    async selectShowMore(seasonNumber) {
+        try {
+            const showMoreElement = this.showMore
+            await this.selectCloneWarsSeason(seasonNumber);
+            await super.waitForClickableAndClick(showMoreElement);
+        } catch (error) {
+            await super.handleError('selectShowMore', error);
+        }
     }
 
-    async selectHiddenCloneWarsEp(season,episode) {
-        await this.selectShowMore(season);
-        await this.cloneWarsEp(episode).click();
+    // Selects a hidden Clone Wars episode guide from a selected season 
+    async selectHiddenCloneWarsEpisode(seasonNumber,episodeName) {
+        try {
+            const cloneWarsEpisodeElement = this.cloneWarsEpisode(episodeName);
+            await this.selectShowMore(seasonNumber);
+            await super.waitForClickableAndClick(cloneWarsEpisodeElement);
+        } catch (error) {
+            await super.handleError('selectCloneWarsEpisode', error);
+        }
     }
 }
 
