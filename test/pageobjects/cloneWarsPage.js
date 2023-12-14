@@ -19,8 +19,8 @@ class CloneWarsPage extends BasePage {
     async performSearch(input) {
         try {
             const searchElement = this.search
-            const enterSearchElement = this.enterSearch
             const searchFieldElement = this.searchField
+            const enterSearchElement = this.enterSearch
             await super.openStarWars();
             await super.waitForClickableAndClick(searchElement);
             await searchFieldElement.setValue(input);

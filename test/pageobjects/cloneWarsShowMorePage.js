@@ -64,6 +64,18 @@ class HiddenCloneWarsPage extends BasePage {
         }
     }
 
+    // Selects the Show More button twice to show more Clone Wars episode guides
+    async selectAdditionalShowMore(seasonNumber) {
+        try {
+            const showMoreElement = this.showMore
+            await this.selectCloneWarsSeason(seasonNumber);
+            await super.waitForClickableAndClick(showMoreElement);
+            await super.waitForClickableAndClick(showMoreElement);
+        } catch (error) {
+            await super.handleError('selectShowMore', error);
+        }
+    }
+
     // Selects a hidden Clone Wars episode guide from a selected season 
     async selectHiddenCloneWarsEpisode(seasonNumber,episodeName) {
         try {
@@ -72,6 +84,16 @@ class HiddenCloneWarsPage extends BasePage {
             await super.waitForClickableAndClick(cloneWarsEpisodeElement);
         } catch (error) {
             await super.handleError('selectCloneWarsEpisode', error);
+        }
+    }
+
+    async selectAdditionalHiddenCloneWarsEpisode(seasonNumber,episodeName) {
+        try {
+            const cloneWarsEpisodeElement = this.cloneWarsEpisode(episodeName);
+            await this.selectAdditionalShowMore(seasonNumber);
+            await super.waitForClickableAndClick(cloneWarsEpisodeElement);
+        } catch (error) {
+            await super.handleError('selectAdditionalHiddenCloneWarsEpisode', error);
         }
     }
 }
